@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { BrandModule } from './brand/brand.module';
@@ -7,7 +7,8 @@ import { User } from './user/entity/user.entity';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UserModule,
+  imports: [
+    UserModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'ec2-34-193-44-192.compute-1.amazonaws.com',
@@ -22,7 +23,8 @@ import { AuthModule } from './auth/auth.module';
       }
     }),
     BrandModule,
-    AuthModule,],
+    AuthModule,
+  ],
   controllers: [],
   providers: [],
 })
