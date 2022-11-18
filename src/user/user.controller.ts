@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
     constructor(private userService: UserService) { }
 
@@ -10,11 +10,6 @@ export class UserController {
     getUsers() {
         return this.userService.getAll();
     }
-
-    /* @Get("/:userId")
-    getById(@Param("userId", ParseIntPipe) userId: number) {
-        return this.userService.getById(userId);
-    } */
 
     @Get("/:email")
     getByEmail(@Param("email") email: string) {

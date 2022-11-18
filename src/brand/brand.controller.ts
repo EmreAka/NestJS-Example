@@ -1,7 +1,7 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { BrandService } from './brand.service';
 
-@Controller('brand')
+@Controller('brands')
 export class BrandController {
     constructor(private brandService: BrandService) { }
 
