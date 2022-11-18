@@ -26,13 +26,12 @@ export class AuthService {
         //TODO: Complete.
     }
 
-    signToken(userId: number, email: string): Promise<string> {
+    private signToken(userId: number, email: string): Promise<string> {
         const data = { sub: userId, email: email }
 
         return this.jwt.signAsync(data, {
             expiresIn: '15m',
             secret: 'super-secret', //.env dosyasına taşı
-
         })
     }
 }
