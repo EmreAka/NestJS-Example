@@ -19,10 +19,6 @@ export class UserService {
         return user;
     }
 
-    getById(userId: number) {
-        return { userId: userId }
-    }
-
     getByEmail(email: string): Promise<User> {
         return this.userRepository.findOne({ where: { Email: email } })
     }
