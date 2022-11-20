@@ -1,8 +1,10 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
 
+@ApiTags('User')
 @Controller('users')
 export class UserController {
     constructor(private userService: UserService) { }
