@@ -31,7 +31,7 @@ export class AuthService {
 
         return this.jwt.signAsync(data, {
             expiresIn: '15m',
-            secret: 'super-secret', //.env dosyasına taşı
+            secret: process.env.SECRET_KEY, //.env dosyasına taşı
         })
     }
 }

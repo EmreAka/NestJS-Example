@@ -5,17 +5,19 @@ import { BrandModule } from './brand/brand.module';
 import { Brand } from './brand/entity/brand.entity';
 import { User } from './user/entity/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     UserModule,
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'ec2-34-193-44-192.compute-1.amazonaws.com',
-      port: 5432,
-      username: 'uwpkbjbqbpvzpk',
-      password: '1244f11f68752a35661d65ccdef6fc3151300144e7ad334924bcfd4782be10ac',
-      database: 'ddfguc2hsbo83g',
+      host: process.env.DATABASE_HOST,
+      port: +process.env.DATABASE_PORT,
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_DATABASE,
       entities: [Brand, User],
       synchronize: false,
       ssl: {
