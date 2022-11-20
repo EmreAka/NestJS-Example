@@ -1,7 +1,10 @@
-import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { User } from 'src/user/entity/user.entity';
 import { UserService } from 'src/user/user.service';
 import { SignInUserDto } from './dto/signin-user.dto';
+import { SignupUserDto } from './dto/signup-user.dto';
+import { createHmac, randomBytes } from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -10,9 +13,9 @@ export class AuthService {
     async signin(user: SignInUserDto) {
         const data = await this.userService.getByEmail(user.email);
 
-        const crypto = require('crypto');
+        //const crypto = require('crypto');
         //var salt = crypto.randomBytes(128); use this to generate salt.
-        const hmac = crypto.createHmac('SHA512', data.PasswordSalt);
+        const hmac = createHmac('SHA512', data.PasswordSalt);
         hmac.update(user.password);
         const computedHash: Buffer = hmac.digest();
 
@@ -22,8 +25,23 @@ export class AuthService {
         throw new ForbiddenException("Wrong credentials");
     }
 
-    signup() {
-        //TODO: Complete.
+    signup(signupUserDto: SignupUserDto): Promise<User> {
+        const user: User = new User();
+        user.Email = signupUserDto.email;
+        user.FirstName = signupUserDto.firstName;
+        user.LastName = signupUserDto.lastName;
+        user.Status = true;
+
+        //salt and hash the password
+        var salt = randomBytes(128);
+        const hmac = createHmac('SHA512', salt);
+        hmac.update(signupUserDto.password);
+        const computedHash: Buffer = hmac.digest();
+
+        user.PasswordSalt = salt;
+        user.PasswordHash = computedHash;
+
+        return this.userService.add(user);
     }
 
     private signToken(userId: number, email: string): Promise<string> {

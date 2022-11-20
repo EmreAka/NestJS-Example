@@ -25,8 +25,8 @@ export class UserController {
         return this.userService.getByEmail(email);
     }
 
-    @Post("")
-    addUser(@Body() body: CreateUserDto) {
-        return this.userService.add(body);
-    }
+    // @Post("")
+    // addUser(@Body() body: CreateUserDto) {
+    //     return this.userService.add(body);
+    // }
 }
