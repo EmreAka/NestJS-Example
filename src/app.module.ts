@@ -13,16 +13,16 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: +process.env.DATABASE_PORT,
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_DATABASE,
+      host: process.env.LOCAL_DATABASE_HOST,
+      port: +process.env.LOCAL_DATABASE_PORT,
+      username: process.env.LOCAL_DATABASE_USERNAME,
+      password: process.env.LOCAL_DATABASE_PASSWORD,
+      database: process.env.LOCAL_DATABASE_DATABASE,
       entities: [Brand, User],
-      synchronize: false,
-      ssl: {
-        rejectUnauthorized: false,
-      }
+      synchronize: true,
+      // ssl: {
+      //   rejectUnauthorized: false,
+      // }
     }),
     BrandModule,
     AuthModule,
