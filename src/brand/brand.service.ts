@@ -23,4 +23,8 @@ export class BrandService {
         // const brandEntity = this.brandRepository.create({...brand});
         return this.brandRepository.save(brand);
     }
+
+    delete(id: number){
+        return this.brandRepository.delete(id);
+    }
 }

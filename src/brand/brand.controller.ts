@@ -1,4 +1,4 @@
-import { Body, CacheInterceptor, Controller, Get, Param, ParseIntPipe, Post, UseInterceptors } from '@nestjs/common';
+import { Body, CacheInterceptor, Controller, Delete, Get, Param, ParseIntPipe, Post, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { BrandService } from './brand.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
@@ -22,5 +22,10 @@ export class BrandController {
     @Post("")
     addBrand(@Body() brand: CreateBrandDto){
         return this.brandService.add(brand);
+    }
+
+    @Delete(":id")
+    deleteBrand(@Param("id", ParseIntPipe) id:number){
+        return this.brandService.delete(id);
     }
 }
